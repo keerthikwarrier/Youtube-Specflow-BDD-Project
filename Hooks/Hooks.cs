@@ -14,6 +14,7 @@ namespace SpecFlowBDDAutomationFramework.Hooks
          and inject them into every binding class that needs access to that shared state.*/
         private readonly IObjectContainer _container;
 
+        public static string Url = "https://www.youtube.com/";
         public Hooks(IObjectContainer container)
         {
             _container = container;
@@ -58,6 +59,7 @@ namespace SpecFlowBDDAutomationFramework.Hooks
             Console.WriteLine("Running before scenario...");
             IWebDriver driver = new ChromeDriver();
             driver.Manage().Window.Maximize();
+            driver.Navigate().GoToUrl(Url);
             Thread.Sleep(3000);
             _container.RegisterInstanceAs<IWebDriver>(driver);
 

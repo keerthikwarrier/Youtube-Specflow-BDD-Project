@@ -102,12 +102,9 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 7
- testRunner.When("Go to Youtube", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("Search for \'Because Its Interesting\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 8
- testRunner.And("Search for \'Because Its Interesting\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 9
  testRunner.Then("Because Its Interesting channel should be displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -116,16 +113,14 @@ this.ScenarioInitialize(scenarioInfo);
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Data Driven Testing - Search Channels On Youtube")]
-        [NUnit.Framework.TestCaseAttribute("Because Its Interesting", "Latest from Because", null)]
-        [NUnit.Framework.TestCaseAttribute("Simplilearn", "Latest from Simplilearn", null)]
-        public virtual void DataDrivenTesting_SearchChannelsOnYoutube(string searchChannel, string channelFound, string[] exampleTags)
+        [NUnit.Framework.TestCaseAttribute("Because Its Interesting", null)]
+        public virtual void DataDrivenTesting_SearchChannelsOnYoutube(string searchChannel, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("SearchChannel", searchChannel);
-            argumentsOfScenario.Add("ChannelFound", channelFound);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Data Driven Testing - Search Channels On Youtube", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 13
+#line 12
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -145,14 +140,52 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
+#line 13
+ testRunner.When(string.Format("Search for {0}", searchChannel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
 #line 14
- testRunner.When("Go to Youtube", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Then("Because Its Interesting channel should be displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 15
- testRunner.And(string.Format("Search for {0}", searchChannel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Data Driven Testing - Search Multiple Channels On Youtube")]
+        [NUnit.Framework.TestCaseAttribute("Because Its Interesting", "Because Its Interesting", null)]
+        [NUnit.Framework.TestCaseAttribute("Simplilearn", "Simplilearn", null)]
+        public virtual void DataDrivenTesting_SearchMultipleChannelsOnYoutube(string searchChannel, string channelFound, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("SearchChannel", searchChannel);
+            argumentsOfScenario.Add("ChannelFound", channelFound);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Data Driven Testing - Search Multiple Channels On Youtube", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 21
+this.ScenarioInitialize(scenarioInfo);
 #line hidden
-#line 16
- testRunner.Then(string.Format("{0} should be displayed", channelFound), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 22
+ testRunner.When(string.Format("Search for {0}", searchChannel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 23
+ testRunner.Then(string.Format("Verify the Channel should be displayed {0}", channelFound), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
