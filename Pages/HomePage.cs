@@ -11,10 +11,11 @@ namespace SpecflowProject.Pages
 {
     public class HomePage  
     {
-        IWebDriver driver;
+        private IWebDriver driver;
         public HomePage(IWebDriver driver)
         {
             PageFactory.InitElements(driver, this);
+            this.driver = driver;
         }
 
         [FindsBy(How = How.XPath,Using = "//input[@id='search']")]
@@ -25,13 +26,19 @@ namespace SpecflowProject.Pages
 
         public void SearchYoutube(string ChannelName)
         {
+            SearchTextBox.Clear();
             SearchTextBox.SendKeys(ChannelName);
-            SearchTextBox.Submit();                
+            SearchTextBox.Submit();
         }
 
         public void GoToTrendingPage()
         {
             TrendingTab.Click();          
+        }
+      
+        public void SearchResultsFound(string ChannelFound)
+        {
+            Assert.True(driver.Title.Contains(ChannelFound));
         }
     }
 }
