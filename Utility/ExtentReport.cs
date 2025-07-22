@@ -22,13 +22,16 @@ namespace SpecFlowBDDAutomationFramework.Utility
 
         public static void ExtentReportInit()
         {
+            /*Creating a html report with the html path and giving report name and selecting    a theme*/
             var htmlReporter = new ExtentHtmlReporter(testResultPath);
             htmlReporter.Config.ReportName = "Automation Status Report";
             htmlReporter.Config.DocumentTitle = "Automation Status Report";
-            htmlReporter.Config.Theme = Theme.Standard;
+            htmlReporter.Config.Theme = Theme.Dark;
             htmlReporter.Start();
 
+            /*_extentReports is an instance variable for ExtentRports class*/
             _extentReports = new ExtentReports();
+            /*Attach the HTML report*/
             _extentReports.AttachReporter(htmlReporter);
             _extentReports.AddSystemInfo("Application", "Youtube");
             _extentReports.AddSystemInfo("Browser", "Chrome");

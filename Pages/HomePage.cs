@@ -18,7 +18,7 @@ namespace SpecflowProject.Pages
             this.driver = driver;
         }
 
-        [FindsBy(How = How.XPath,Using = "//input[@id='search']")]
+        [FindsBy(How = How.XPath,Using = "//input[@placeholder='Search']")]
         public IWebElement SearchTextBox;
 
         [FindsBy(How = How.XPath, Using = "//yt-formatted-string[text()='Trending']")]
