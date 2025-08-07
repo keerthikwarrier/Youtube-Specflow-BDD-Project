@@ -4,6 +4,7 @@ using BoDi;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using SpecFlowBDDAutomationFramework.Utility;
+using SpecflowProject.Utilities;
 
 namespace SpecFlowBDDAutomationFramework.Hooks
 {
@@ -26,7 +27,7 @@ namespace SpecFlowBDDAutomationFramework.Hooks
             Console.WriteLine("Running before test run...");
             ExtentReportInit();
         }
-
+        //Runs once after all tests in the entire test run have finished. Whole test suite.
         [AfterTestRun]
         public static void AfterTestRun()
         {
@@ -60,12 +61,13 @@ namespace SpecFlowBDDAutomationFramework.Hooks
             IWebDriver driver = new ChromeDriver();
             driver.Manage().Window.Maximize();
             driver.Navigate().GoToUrl(Url);
-            Thread.Sleep(3000);
             _container.RegisterInstanceAs<IWebDriver>(driver);
+            _container.RegisterInstanceAs(new WaitHelper(driver));
 
             _scenario = _feature.CreateNode<Scenario>(scenarioContext.ScenarioInfo.Title);
         }
-
+        // Runs after each scenario (e.g., each test case written in your feature file)
+        
         [AfterScenario]
         public void AfterScenario()
         {
@@ -75,6 +77,7 @@ namespace SpecFlowBDDAutomationFramework.Hooks
             if (driver != null)
             {
                 driver.Quit();
+                driver.Dispose();
             }
         }
 

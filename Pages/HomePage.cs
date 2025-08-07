@@ -1,44 +1,50 @@
-﻿using OpenQA.Selenium;
+﻿using Microsoft.VisualStudio.TestPlatform.ObjectModel;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
+using SeleniumExtras.WaitHelpers;
+using SpecflowProject.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Collections.Specialized.BitVector32;
 
 namespace SpecflowProject.Pages
 {
     public class HomePage  
     {
         private IWebDriver driver;
-        public HomePage(IWebDriver driver)
+        private WaitHelper wait;
+
+        public HomePage(IWebDriver driver,WaitHelper wait)
         {
-            PageFactory.InitElements(driver, this);
             this.driver = driver;
+            this.wait = wait;
+
+            PageFactory.InitElements(driver, this);
+            
         }
 
-        [FindsBy(How = How.XPath,Using = "//input[@placeholder='Search']")]
+        [FindsBy(How = How.Name,Using = "search_query")]
         public IWebElement SearchTextBox;
 
-        [FindsBy(How = How.XPath, Using = "//yt-formatted-string[text()='Trending']")]
-        public IWebElement TrendingTab;
+        [FindsBy(How =How.ClassName,Using = "ytSearchboxComponentSearchButton")]
+        public IWebElement SearchButton;
+
 
         public void SearchYoutube(string ChannelName)
         {
             SearchTextBox.Clear();
             SearchTextBox.SendKeys(ChannelName);
-            SearchTextBox.Submit();
+            SearchButton.Click();
+            wait.TitleContains(ChannelName);
         }
 
-        public void GoToTrendingPage()
-        {
-            TrendingTab.Click();          
-        }
+
+
       
-        public void SearchResultsFound(string ChannelFound)
-        {
-            Assert.True(driver.Title.Contains(ChannelFound));
-        }
+   
     }
 }

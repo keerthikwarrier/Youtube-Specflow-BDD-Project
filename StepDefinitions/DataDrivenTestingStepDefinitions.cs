@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using SpecflowProject.Pages;
+using SpecflowProject.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +14,11 @@ namespace SpecflowProject.StepDefinitions
     public sealed class DataDrivenTestingStepDefinitions
     {
         private IWebDriver driver;
-        public DataDrivenTestingStepDefinitions(IWebDriver driver)
+        private WaitHelper wait;
+        public DataDrivenTestingStepDefinitions(IWebDriver driver, WaitHelper wait)
         {
             this.driver = driver;
+            this.wait = wait;
         }
 
         [When(@"Search for '([^']*)'")]
@@ -25,14 +28,14 @@ namespace SpecflowProject.StepDefinitions
             //SearchBox.SendKeys(SearchChannel);
             //SearchBox.Submit();
             //Thread.Sleep(5000);
-            HomePage HP = new HomePage(driver);
+            HomePage HP = new HomePage(driver,wait);
             HP.SearchYoutube(SearchChannel);
         }
 
         [When(@"Search for ([^']*)")]
         public void WhenSearchForBecauseItsInteresting(string SearchChannel)
         {
-            HomePage HP = new HomePage(driver);
+            HomePage HP = new HomePage(driver,wait);
             HP.SearchYoutube(SearchChannel);
         }
 
@@ -48,7 +51,7 @@ namespace SpecflowProject.StepDefinitions
         [When(@"Search the Channel on Youtube search")]
         public void WhenSearchTheChannelOnYoutubeSearch(Table table)
         {
-            HomePage HP = new HomePage(driver);
+            HomePage HP = new HomePage(driver,wait);
             var SearchCriteria = table.CreateSet<ChannelTestData>();
             foreach (var item in SearchCriteria)
             {
@@ -60,11 +63,11 @@ namespace SpecflowProject.StepDefinitions
         [Then(@"Verify the search displays the Channel")]
         public void ThenVerifyTheSearchDisplaysTheChannel(Table table)
         {
-            HomePage HP = new HomePage(driver);
+            HomePage HP = new HomePage(driver,wait);
             var SearchCriteria = table.CreateSet<ChannelTestData>();
             foreach (var item in SearchCriteria)
             {
-                HP.SearchResultsFound(item.ChannelFound);
+                Assert.True(driver.Title.Contains(item.ChannelFound));
             }
         }
 
